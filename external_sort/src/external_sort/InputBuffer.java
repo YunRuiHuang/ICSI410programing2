@@ -1,6 +1,9 @@
 package external_sort;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
@@ -46,8 +49,23 @@ public class InputBuffer {
 	 */
 	public Iterator<Object> iterator() throws IOException, ClassNotFoundException {
 		// TODO complete this method (40 points)
-		// ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(buffer));
-		throw new UnsupportedOperationException();
+		ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(buffer));
+	  
+	    Iterator<Object> iterator=null;
+	    ArrayList<Object> objectList = new ArrayList<Object>();
+	    
+	    try{
+	        while (true){
+	        	Object read = (Object)in.readObject();
+		        objectList.add(read);
+	        }
+	    }catch (IOException e) {
+//	    	System.out.print("While");
+	    }catch (ClassNotFoundException e) {}
+	    
+	    iterator = objectList.iterator();
+
+	    return iterator;
 	}
 
 }
